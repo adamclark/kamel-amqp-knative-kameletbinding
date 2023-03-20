@@ -1,0 +1,18 @@
+apiVersion: camel.apache.org/v1alpha1
+kind: KameletBinding
+metadata:
+  name: amqbroker-to-knative
+spec:
+  sink:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: event-display-1
+  source:
+    properties:
+      destinationName: testAddress1
+      remoteURI: 'amqp://ex-aao-amqp-0-svc:61626'
+    ref:
+      apiVersion: camel.apache.org/v1alpha1
+      kind: Kamelet
+      name: jms-amqp-10-source
